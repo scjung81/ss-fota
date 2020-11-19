@@ -1,0 +1,1 @@
+python ss_fota.py
