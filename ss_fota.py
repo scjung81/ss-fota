@@ -117,21 +117,15 @@ class DriverBuilder():
             print("result:" + key + ":" + str(command_result[key]))
 
 
+from connection_info import get_connection_info
 #ID/PW
-# df = pd.read_excel("idpw.xlsx")
-# plm_id = df.loc[0, "id"]
-# plm_pw = df.loc[0, "pw"]
-plm_id = 'jungil.kwon@sk.com'
-plm_pw = "asdfqwe123!"  #<-- 3개월단위 업데이트 필요
-# try:
-#     headless_raw = df.loc[0, "headless"]
-# except Exception as ex:
-#     headless_raw = "TRUE"
+ss_fota_id = get_connection_info("ss_fota_id")
+ss_fota_pw = get_connection_info("ss_fota_pw")  #<-- 3개월단위 업데이트 필요
 
 headless_raw = "FALSE"   #for test
 headless_raw = "TRUE"   #headless 모드, 자동화시 필요
 
-host = 'https://fustat.samsungdm.com:8443/b2c/login/login.do'
+host = get_connection_info("ss_fota_host")
 
 headless = True
 if(headless_raw == "FALSE" or headless_raw == False):
@@ -156,18 +150,18 @@ def find_xpath_click(driver, xpath, decribe="", wait=30):
         raise Exception
 
 
-def login_plm():
+def login_ss_fota():
     ## Login
     db = DriverBuilder()
     driver = db.get_driver(tmpdir, headless)
     driver.get(host)
-    driver.find_element_by_name('emailID').send_keys(plm_id) ## 값 입력
-    driver.find_element_by_name('password').send_keys(plm_pw)
+    driver.find_element_by_name('emailID').send_keys(ss_fota_id) ## 값 입력
+    driver.find_element_by_name('password').send_keys(ss_fota_pw)
     find_xpath_click(driver, '/html/body/form/div/div/div/div[2]/div[1]/div[1]/div[2]/button', "로그인 버튼")
     return driver
 
 try :
-    driver = login_plm()
+    driver = login_ss_fota()
 except Exception as ex:
     print(ex)
     print("Please Check chromedriver version..")

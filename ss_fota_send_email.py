@@ -504,8 +504,12 @@ def start_send_report_email():
 
     from tabulate import tabulate
 
-    username = "sdqiskt@gmail.com"
-    password = 'chzqaozxqohquxfp'
+    from connection_info import get_connection_info
+
+    host = get_connection_info("gmail_smtp_host")
+    username = get_connection_info("gmail_user")
+    password = get_connection_info("gmail_pw")
+
     sender = username
 
     images = list()
@@ -586,7 +590,7 @@ def start_send_report_email():
                 files.append(ss_fota_attach_fname)
                 print("files: ", files)
 
-            mail_sender = MailSender(username, password)
+            mail_sender = MailSender(username, password, server=host)
 
             if __name__ == "__main__":
                 # 테스트 메일 #Jupyter 노트 북 또는 개별 모듈 실행시

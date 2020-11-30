@@ -7,12 +7,13 @@ from sendMail import *
 
 def ftpupload_file(dir, filename):
 
+    from connection_info import get_connection_info
+
     # filename = "OSU1.png"
     ftp = ftplib.FTP()
-    ftp.connect("223.62.224.35", 21)    #Ftp 주소 Connect(주소 , 포트)
-    ftp.login("iotinfo", "sktdatainfo@0810")         #login (ID, Password)
-    ftp.cwd("/home/iotinfo")   #파일 전송할 Ftp 주소 (받을 주소)
-
+    ftp.connect(get_connection_info("ftp_host"), int(get_connection_info("ftp_port")))    #Ftp 주소 Connect(주소 , 포트)
+    ftp.login(get_connection_info("ftp_id"), get_connection_info("ftp_pw"))          #login (ID, Password)
+    ftp.cwd(get_connection_info("ftp_dir"))   #파일 전송할 Ftp 주소 (받을 주소)
     current_dir = os.getcwd()
 
     #기존 파일 삭제

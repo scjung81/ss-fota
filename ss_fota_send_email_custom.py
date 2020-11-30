@@ -493,8 +493,12 @@ def start_send_report_email_custom(model_lists, email_list):
                                    ("text-align", "center")])
     ]
 
-    username = "sdqiskt@gmail.com"
-    password = 'chzqaozxqohquxfp'
+    from connection_info import get_connection_info
+
+    smtp_host = get_connection_info("gmail_smtp_host")
+    username = get_connection_info("gmail_user")
+    password = get_connection_info("gmail_pw")
+
     sender = username
 
     images = list()
@@ -583,7 +587,7 @@ def start_send_report_email_custom(model_lists, email_list):
                 files.append(ss_fota_raw_current_fname)
                 print("files: ", files)
 
-            mail_sender = MailSender(username, password)
+            mail_sender = MailSender(username, password, server=smtp_host)
 
 
             if __name__ == "__main__":

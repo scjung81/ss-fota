@@ -106,7 +106,7 @@ def StartMaeDb_last90days():
 
     def getNew_plm_sw():
         #마지막 폴더 찾기
-        filepath = f"{os.path.abspath('..')}\\PLM_Crawling\\crawling\\data"
+        filepath = f"{os.path.abspath('..')}\\plm_selenium\\crawling\\data"
 
         lastdate = max([filepath +"/"+ f for f in os.listdir(filepath)], key=os.path.getctime)
         print(lastdate)
