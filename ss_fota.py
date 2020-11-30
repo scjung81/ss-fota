@@ -3,8 +3,7 @@
 # Chrome WebDriver : https://sites.google.com/a/chromium.org/chromedriver/downloads
 # Chrome version 확인 방법 : chrome 에서 chrome://version/ 로 연결
 
-from selenium import webdriver
-from bs4 import BeautifulSoup
+
 from time import sleep
 import shutil
 import os
