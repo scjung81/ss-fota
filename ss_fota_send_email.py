@@ -8,15 +8,10 @@ def start_send_report_email():
     pd.set_option('display.width', 1000)
 
     # # 관심 단말 등록
-
-    # In[2]:
-
-    model_lists = [['SM-G977N', 'SM-N971N', 'SM-N976N'], ['SM-G981N', 'SM-G986N', 'SM-G988N', 'SM-G781N'],
+    model_lists = [['SM-G977N', 'SM-N971N', 'SM-N976N'], ['SM-G981N', 'SM-G986N', 'SM-G988N'], ['SM-G986N-BTS', 'SM-G781N'],
                    ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N']]
     model_list = [element for array in model_lists for element in array]
 
-    model_list
-    # In[3]:
 
     import os
     from datetime import datetime, timedelta
