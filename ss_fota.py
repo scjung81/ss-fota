@@ -277,10 +277,11 @@ from make_db_data_ss_fota_device_by_version import StartMaeDb_last90days
 StartMaeDb_last90days()
 
 from ss_fota_send_email import start_send_report_email
+# test 시 주석처리 필요
 start_send_report_email()
 
 from ss_fota_send_email_custom import start_send_report_email_custom
-start_send_report_email_custom([['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N', 'SM-G986N-BTS']], ['ywhan@sktelecom.com', "58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "jungil.kwon@sktelecom.com", "jaehyun.ryu@sktelecom.com"])
+start_send_report_email_custom([['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N']], ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', "58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "jungil.kwon@sktelecom.com", "jaehyun.ryu@sktelecom.com"])
 
 from ftpupload_fota import start_upload
 file_list = start_upload()

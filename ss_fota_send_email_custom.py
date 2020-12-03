@@ -605,6 +605,6 @@ def start_send_report_email_custom(model_lists, email_list):
 
 ## Start
 if __name__ == "__main__":
-    start_send_report_email_custom([['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N', 'SM-G986N-BTS']], ["58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "jungil.kwon@sktelecom.com"])
+    start_send_report_email_custom([['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N', 'SM-G986N-BTS']], ["58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "sukchan.jung@sktelecom.com", "jungil.kwon@sktelecom.com"])
 
 
