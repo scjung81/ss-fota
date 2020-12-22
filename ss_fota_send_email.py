@@ -390,7 +390,7 @@ def start_send_report_email():
                  'sync_time']].reset_index()
         print("< {}({}) : {}기준>".format(pte_name, model, str(sync_date) + "_" + str(sync_time)))
         # display(HTML(df.to_html()))
-        print("SUM {} / {}%".format(df["Count"].sum(), df["MS(%)"].sum()))
+        # print("SUM {} / {}%".format(df["Count"].sum(), df["MS(%)"].sum()))
         print("========================================\n")
 
     #     break
