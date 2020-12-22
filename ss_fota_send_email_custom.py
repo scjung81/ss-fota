@@ -264,7 +264,7 @@ def start_send_report_email_custom(model_lists, email_list):
         ["Model", "AP_CP", "Count", "Total Count", "sync_dt", "sync_time"]]
     ss_fota_recent_d1.rename(columns={'Count': 'Count_D-1', 'Total Count': 'Total Count_D-1', 'sync_dt': 'sync_dt_D-1',
                                       'sync_time': 'sync_time_D-1'}, inplace=True)
-    ss_fota_recent = pd.merge(ss_fota_recent, ss_fota_recent_d1, on=['Model', 'AP_CP'], how='outer')
+    ss_fota_recent = pd.merge(ss_fota_recent, ss_fota_recent_d1, on=['Model', 'AP_CP'], how='left')
     ss_fota_recent["Delta Count"] = ss_fota_recent["Count"] - ss_fota_recent["Count_D-1"]
     ss_fota_recent["Delta Total Count"] = ss_fota_recent["Total Count"] - ss_fota_recent["Total Count_D-1"]
 
@@ -368,7 +368,7 @@ def start_send_report_email_custom(model_lists, email_list):
                  'sync_time']].reset_index()
         print("< {}({}) : {}기준>".format(pte_name, model, str(sync_date) + "_" + str(sync_time)))
         # display(HTML(df.to_html()))
-        print("SUM {} / {}%".format(df["Count"].sum(), df["MS(%)"].sum()))
+        # print("SUM {} / {}%".format(df["Count"].sum(), df["MS(%)"].sum()))
         print("========================================\n")
 
     # In[42]:
