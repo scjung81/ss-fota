@@ -261,7 +261,7 @@ def start_send_report_email():
     ss_fota_recent_d1.rename(
         columns={'Count': 'Count_D-1', "MS(%)": "MS(%)_D-1", 'Total Count': 'Total Count_D-1', 'sync_dt': 'sync_dt_D-1',
                  'sync_time': 'sync_time_D-1'}, inplace=True)
-    ss_fota_recent = pd.merge(ss_fota_recent, ss_fota_recent_d1, on=['Model', 'AP_CP'], how='outer')
+    ss_fota_recent = pd.merge(ss_fota_recent, ss_fota_recent_d1, on=['Model', 'AP_CP'], how='left')
     ss_fota_recent["Delta Count"] = ss_fota_recent["Count"] - ss_fota_recent["Count_D-1"]
     ss_fota_recent["Delta MS(%)"] = ss_fota_recent["MS(%)"] - ss_fota_recent["MS(%)_D-1"]
     ss_fota_recent["Delta Total Count"] = ss_fota_recent["Total Count"] - ss_fota_recent["Total Count_D-1"]
