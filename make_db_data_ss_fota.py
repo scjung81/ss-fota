@@ -165,8 +165,8 @@ def StartMakeDb_current():
 
     # In[32]:
 
-
-    ss_fota=ss_fota_final.loc[ss_fota_final["release_sw"].notnull()]
+    # 삼성 FOTA 서버 Realtime 중 PLM에서 공유된(release_sw=True) 버전만 Total_Count 합계에 포함
+    ss_fota=ss_fota_final.loc[(ss_fota_final["release_sw"].notnull()) & (ss_fota_final["release_sw"]==True)]
 
     #모델별 Total count 추가
     tot_device_count = ss_fota["Total Count"].groupby([ss_fota["Model"]]).sum().reset_index()

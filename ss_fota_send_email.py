@@ -238,16 +238,16 @@ def start_send_report_email():
         ss_fota_current['sync_dt'] = ss_fota_current['sync_dt'].astype(str)
         ss_fota_current['sync_time'] = ss_fota_current['sync_time'].astype(str)
 
-        # 최근 가입자 현황 + 모델 정보 통합
+        # 최근 가입자 현황(Realtime + PLM) + 모델 정보(90일 통계자료, OS 버전, FOTA Size 등 포함) 통합
         df1 = ss_fota_current.loc[
-            ss_fota_current['release_sw'].notnull(), ['Model', 'AP_CP', 'Total Count', 'MS', 'Total Device Count',
-                                                      'ua_ver', 'release_sw', 'sync_dt', 'sync_time']]
+            (ss_fota_current['release_sw'].notnull()) & (ss_fota_current["release_sw"]==True),  #삼성 FOTA 서버 Realtime 중 PLM에서 공유된(release_sw=True) 버전만 필더링
+            ['Model', 'AP_CP', 'Total Count', 'MS', 'Total Device Count', 'ua_ver', 'release_sw', 'sync_dt', 'sync_time']]
         df1.rename(columns={'Total Count': 'Count'}, inplace=True)
         df1.rename(columns={'Total Device Count': 'Total Count'}, inplace=True)
         df1.rename(columns={'MS': 'MS(%)'}, inplace=True)
 
         df2 = ss_fota_info
-        ss_fota_recent = pd.merge(df1, df2, how='outer')
+        ss_fota_recent = pd.merge(df1, df2, how='left')  #Merge 방법을 left 로 변경 : 삼성 FOTA 서버 90일 통계자료에 PLM 에서 공유되지 않은 버전이 올라 와있는 경우 예외처리 하기 위함(Realtime 우선)
 
         #     print(ss_fota_recent.head())
         return ss_fota_recent
@@ -261,7 +261,7 @@ def start_send_report_email():
     ss_fota_recent_d1.rename(
         columns={'Count': 'Count_D-1', "MS(%)": "MS(%)_D-1", 'Total Count': 'Total Count_D-1', 'sync_dt': 'sync_dt_D-1',
                  'sync_time': 'sync_time_D-1'}, inplace=True)
-    ss_fota_recent = pd.merge(ss_fota_recent, ss_fota_recent_d1, on=['Model', 'AP_CP'], how='left')
+    ss_fota_recent = pd.merge(ss_fota_recent, ss_fota_recent_d1, on=['Model', 'AP_CP'], how='left') #Merge 방법을 left 로 변경 : 최든 자료를 기준으로 Data 취합목적 (전일자 Data에 잘못된 버전이 들어와 있을 경우 계속적으로 남아있게 되는 문제 수정)
     ss_fota_recent["Delta Count"] = ss_fota_recent["Count"] - ss_fota_recent["Count_D-1"]
     ss_fota_recent["Delta MS(%)"] = ss_fota_recent["MS(%)"] - ss_fota_recent["MS(%)_D-1"]
     ss_fota_recent["Delta Total Count"] = ss_fota_recent["Total Count"] - ss_fota_recent["Total Count_D-1"]
