@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 # 인프라 메일 공유용
-def start_send_report_email():
+def start_send_report_email(isTest=False):
     import pandas as pd
 
     pd.set_option('display.max_rows', 500)
@@ -9,8 +9,8 @@ def start_send_report_email():
     pd.set_option('display.width', 1000)
 
     # # 관심 단말 등록
-    model_lists = [['SM-G977N', 'SM-N971N', 'SM-N976N'], ['SM-G981N', 'SM-G986N', 'SM-G988N'], ['SM-G986N-BTS', 'SM-G781N'],
-                   ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N']]
+    model_lists = [['SM-G977N'], ['SM-N971N', 'SM-N976N'], ['SM-G981N', 'SM-G986N', 'SM-G988N'], ['SM-G986N-BTS', 'SM-G781N'],
+                   ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N'], ['SM-G991N', 'SM-G996N', 'SM-G998N'], ['SM-A426N']]
     model_list = [element for array in model_lists for element in array]
 
 
@@ -593,21 +593,22 @@ def start_send_report_email():
                 # 내부 공유용
                 print("테스트 메일")
                 mail_sender.send(sender,
-                                 ["58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "sukchan.jung@sktelecom.com", "jungil.kwon@sktelecom.com"],
-                                 '삼성 FOTA 연동 현황 ({}/{})'.format(page, total_page), message_html=message_html,
+                                 ["58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "sukchan.jung@sktelecom.com"],
+                                 '삼성 FOTA 연동 현황 ({}/{}), {}'.format(page, total_page, model_list), message_html=message_html,
                                  message_plain=message_plain, images=images, files=files)
             else:
                 # Teams 공유 메일 주소
                 # 인프라 공유용
-                mail_sender.send(sender, ["sukchan.jung@sktelecom.com", "jungil.kwon@sktelecom.com", 'ywhan@sktelecom.com', 'jaehyun.ryu@sktelecom.com',
-                                          "9164c98a.o365skt.onmicrosoft.com@apac.teams.ms"],
-                                 '삼성 FOTA 연동 현황 ({}/{})'.format(page, total_page), message_html=message_html,
-                                 message_plain=message_plain, images=images,
-                                 files=files)
-
-        print("complet!!")
-
-
+                if (isTest == False):
+                    mail_sender.send(sender, ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', 'jaehyun.ryu@sktelecom.com', 'jbmoon@sktelecom.com',
+                                         "9164c98a.o365skt.onmicrosoft.com@apac.teams.ms"],
+                                '삼성 FOTA 연동 현황 ({}/{})'.format(page, total_page), message_html=message_html,
+                                message_plain=message_plain, images=images,
+                                files=files)
+                    print("complet!!")
+                else:
+                    mail_sender.send(sender, ["sukchan.jung@sktelecom.com"], '삼성 FOTA 연동 현황 ({}/{})'.format(page, total_page), message_html=message_html, message_plain=message_plain, images=images, files=files)
+                    print("complet!!")
 ## Start
 if __name__ == "__main__":
     start_send_report_email()

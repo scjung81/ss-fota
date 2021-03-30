@@ -3,7 +3,6 @@
 # Chrome WebDriver : https://sites.google.com/a/chromium.org/chromedriver/downloads
 # Chrome version 확인 방법 : chrome 에서 chrome://version/ 로 연결
 
-
 from time import sleep
 import shutil
 import os
@@ -122,7 +121,7 @@ ss_fota_id = get_connection_info("ss_fota_id")
 ss_fota_pw = get_connection_info("ss_fota_pw")  #<-- 3개월단위 업데이트 필요
 
 headless_raw = "FALSE"   #for test
-headless_raw = "TRUE"   #headless 모드, 자동화시 필요
+#headless_raw = "TRUE"   #headless 모드, 자동화시 필요
 
 host = get_connection_info("ss_fota_host")
 
@@ -177,7 +176,8 @@ except Exception as ex:
 
 
 
-find_xpath_click(driver, '//html/body/div[1]/div[2]/div[1]/div/div[2]/ul/li[5]/a/span[1]/img', "Realtime")
+#find_xpath_click(driver, '//html/body/div[1]/div[2]/div[1]/div/div[2]/ul/li[5]/a/span[1]/img', "Realtime")
+find_xpath_click(driver, '/html/body/div[1]/div[2]/div[1]/div/div[2]/ul/li[4]/a/span[1]/img', "Realtime")
 find_xpath_click(driver, '/html/body/div[2]/div[1]/div[1]/div/ul/li[4]/ul/li[2]/ul/li[1]/a/div', "Version Count on Market")
 #
 find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[2]/div[4]/div[2]/div/span[2]", "CC ALL 체크")
@@ -237,21 +237,21 @@ def getcelenderxy(day):
 # device_by_version
 find_xpath_click(driver, '/html/body/div[2]/div[1]/div[1]/div/ul/li[2]/h2/a', "DEVICE", wait=70)
 find_xpath_click(driver, '/html/body/div[2]/div[1]/div[1]/div/ul/li[2]/ul/li/ul/li[1]/a/div', " By version")
+
 find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[2]/div[4]/div[2]/div/span[2]/input", "CC ALL 체크")
 find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[2]/div[4]/div[3]/div/span[2]/input", "Model ALL 체크")
 
 #90일 전으로 설정
-
-start_date = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[1]/div[2]/div[1]/input[1]').text
-print("start_date:" +start_date)
 find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[1]/div[2]/div[1]/img", "Date Range_start")
+
 for j in range(0, getdeltamonth_6to90()):
     find_xpath_click(driver, "/html/body/div[24]/div/a[1]/span", "Previous month")
 
 x,y = getcelenderxy(parse(getshiftday(getCurrentDate(), -89)))
 find_xpath_click(driver, "/html/body/div[24]/table/tbody/tr[{0}]/td[{1}]/a".format(y,x), "Select Day")
+#find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[1]/div[2]/ul/li[1]/a".format(y,x), "Select Day")
 
-
+find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[1]/div[2]/ul/li[1]/a", "Click Day")
 find_xpath_click(driver, '/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[2]/p/a', "Search")
 
 find_xpath_click(driver, '/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[3]/div/div[2]/p/a', "XLS Report", wait=150)
@@ -278,10 +278,10 @@ StartMaeDb_last90days()
 
 from ss_fota_send_email import start_send_report_email
 # test 시 주석처리 필요
-start_send_report_email()
+start_send_report_email(False)
 
 from ss_fota_send_email_custom import start_send_report_email_custom
-start_send_report_email_custom([['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N']], ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', "58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "jungil.kwon@sktelecom.com", "jaehyun.ryu@sktelecom.com"])
+start_send_report_email_custom([['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N']], ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', "58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "jungil.kwon@sktelecom.com", "jaehyun.ryu@sktelecom.com", "jbmoon@sktelecom.com"])
 
 from ftpupload_fota import start_upload
 file_list = start_upload()
