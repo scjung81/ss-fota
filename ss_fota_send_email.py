@@ -10,7 +10,7 @@ def start_send_report_email(isTest=False):
 
     # # 관심 단말 등록
     model_lists = [['SM-G977N'], ['SM-N971N', 'SM-N976N'], ['SM-G981N', 'SM-G986N', 'SM-G988N'], ['SM-G986N-BTS', 'SM-G781N'],
-                   ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N'], ['SM-G991N', 'SM-G996N', 'SM-G998N'], ['SM-A426N']]
+                   ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N'], ['SM-G991N', 'SM-G996N', 'SM-G998N'], ['SM-A426N', 'SM-A826S']]
     model_list = [element for array in model_lists for element in array]
 
 
@@ -156,7 +156,7 @@ def start_send_report_email(isTest=False):
     ss_fota_current_d1 = pd.read_csv(file_select(2, "yesterday"), encoding='euc-kr')  # for Test
 
     # 일자별 업그레이드 가입자 현황 (90일)
-    ss_fota_lastday = pd.read_csv(file_select(1, today), encoding='euc-kr')
+    ss_fota_lastday = pd.read_csv(file_select(1, today), encoding='euc-kr', low_memory=False)
 
     ss_fota_current.rename(columns={'ap_cp': 'AP_CP'}, inplace=True)
     ss_fota_current_d1.rename(columns={'ap_cp': 'AP_CP'}, inplace=True)
@@ -346,14 +346,12 @@ def start_send_report_email(isTest=False):
         aggfunc = 'sum'
         values = 'Device Count'
         pte_name = data['pet_name'].unique()[0]
-
         pivot_tabile = pd.pivot_table(data=data, index=index, columns=x_column, aggfunc=aggfunc, values=values).T
         pivot_tabile['Total'] = pivot_tabile.sum(axis=1)
 
         fig = plt.figure(figsize=(20, 6))
         ax = fig.add_subplot(1, 1, 1)
         #     plt.title(pte_name + "(" + model + ")", fontsize=20)
-
         mk_index = 0
         for sw in pivot_tabile.columns:
 
@@ -367,21 +365,17 @@ def start_send_report_email(isTest=False):
             mk_index = (mk_index + 1) % (len(marker) - 1)
 
         plt.legend(loc=7, fontsize=13, bbox_to_anchor=(1.16, 0.5))
-
         # Grop 설정
         ax.xaxis.set_minor_locator(mdates.DayLocator(interval=1))
         ax.xaxis.set_major_locator(mdates.DayLocator(interval=5))
         ax.grid(which='minor', alpha=0.2)
         ax.grid(which='major', alpha=1)
-
         plt.xticks(rotation=45, fontsize=12.3)
-
         ax.yaxis.set_major_formatter(mpl.ticker.StrMethodFormatter('{x:,.0f}'))
-
         fig.patch.set_facecolor('xkcd:white')
         #     plt.show()
+        print(model + ".png")
         fig.savefig(model + ".png", bbox_inches='tight')  # Use fig. here
-
         # 표출력, 마지막 연동 시점 기준
         df = ss_fota_recent.loc[ss_fota_recent['Model'] == model]
         df = df[['Model', 'AP_CP', 'Count', 'MS(%)', 'Total Count', 'Delta Count', 'Delta Total Count', 'ua_ver',
@@ -588,27 +582,27 @@ def start_send_report_email(isTest=False):
 
             mail_sender = MailSender(username, password, server=host)
 
-            if __name__ == "__main__":
-                # 테스트 메일 #Jupyter 노트 북 또는 개별 모듈 실행시
-                # 내부 공유용
-                print("테스트 메일")
-                mail_sender.send(sender,
-                                 ["58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "sukchan.jung@sktelecom.com"],
-                                 '삼성 FOTA 연동 현황 ({}/{}), {}'.format(page, total_page, model_list), message_html=message_html,
-                                 message_plain=message_plain, images=images, files=files)
-            else:
+#            if __name__ == "__main__":
+#                # 테스트 메일 #Jupyter 노트 북 또는 개별 모듈 실행시
+#                # 내부 공유용
+#                print("테스트 메일")
+#                mail_sender.send(sender,
+#                                 ["sukchan.jung@sktelecom.com"],
+#                                 '삼성 FOTA 연동 현황 ({}/{}), {}'.format(page, total_page, models), message_html=message_html,
+#                                 message_plain=message_plain, images=images, files=files)
+#            else:
                 # Teams 공유 메일 주소
                 # 인프라 공유용
-                if (isTest == False):
-                    mail_sender.send(sender, ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', 'jaehyun.ryu@sktelecom.com', 'jbmoon@sktelecom.com',
-                                         "9164c98a.o365skt.onmicrosoft.com@apac.teams.ms"],
-                                '삼성 FOTA 연동 현황 ({}/{})'.format(page, total_page), message_html=message_html,
-                                message_plain=message_plain, images=images,
-                                files=files)
-                    print("complet!!")
-                else:
-                    mail_sender.send(sender, ["sukchan.jung@sktelecom.com"], '삼성 FOTA 연동 현황 ({}/{})'.format(page, total_page), message_html=message_html, message_plain=message_plain, images=images, files=files)
-                    print("complet!!")
+            if (isTest == False):
+                mail_sender.send(sender, ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', 'jaehyun.ryu@sktelecom.com', 'jbmoon@sktelecom.com',
+                                     "9164c98a.o365skt.onmicrosoft.com@apac.teams.ms"],
+                            '삼성 FOTA 연동 현황 ({}/{}), {}'.format(page, total_page, models), message_html=message_html,
+                            message_plain=message_plain, images=images,
+                            files=files)
+                print("complet!!")
+            else:
+                mail_sender.send(sender, ["sukchan.jung@sktelecom.com"], '삼성 FOTA 연동 현황 ({}/{}), {}'.format(page, total_page, models), message_html=message_html, message_plain=message_plain, images=images, files=files)
+                print("complet!!")
 ## Start
 if __name__ == "__main__":
     start_send_report_email()
