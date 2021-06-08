@@ -2,7 +2,6 @@
 # coding: utf-8
 def start_send_report_email_custom(isTest, model_lists, email_list):
     import pandas as pd
-
     pd.set_option('display.max_rows', 500)
     pd.set_option('display.max_columns', 500)
     pd.set_option('display.width', 1000)
@@ -611,6 +610,7 @@ def start_send_report_email_custom(isTest, model_lists, email_list):
 
 ## Start
 if __name__ == "__main__":
-    start_send_report_email_custom([['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N', 'SM-G986N-BTS']], ["58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "sukchan.jung@sktelecom.com", "jungil.kwon@sktelecom.com"])
-
-
+    start_send_report_email_custom(
+        [['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N', 'SM-G950N', 'SM-G955N', 'SM-N960N', 'SM-N950N']],
+        ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', "58fc60be.o365skt.onmicrosoft.com@apac.teams.ms",
+         "jaehyun.ryu@sktelecom.com", "jbmoon@sktelecom.com"])
