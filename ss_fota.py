@@ -291,7 +291,7 @@ from ss_fota_send_email import start_send_report_email
 start_send_report_email(isTest)
 
 from ss_fota_send_email_custom import start_send_report_email_custom
-start_send_report_email_custom([['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N']], ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', "58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "jungil.kwon@sktelecom.com", "jaehyun.ryu@sktelecom.com", "jbmoon@sktelecom.com"])
+start_send_report_email_custom([['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N']], ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', "58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "jaehyun.ryu@sktelecom.com", "jbmoon@sktelecom.com"])
 
 from ftpupload_fota import start_upload
 file_list = start_upload()
