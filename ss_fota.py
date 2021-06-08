@@ -18,6 +18,8 @@ import pandas as pd
 from sendMail import *
 sendMail(title="ss_fota started ", text="")
 
+isTest = False
+
 now = datetime.now()
 dt = datetime.today().strftime("%Y%m%d_%H%M")
 
@@ -125,7 +127,11 @@ headless_raw = "FALSE"   #for test
 
 host = get_connection_info("ss_fota_host")
 
-headless = True
+if (isTest == True) :
+    headless = True
+else :
+    headless = False
+
 if(headless_raw == "FALSE" or headless_raw == False):
     headless = False
 
@@ -146,7 +152,6 @@ def find_xpath_click(driver, xpath, decribe="", wait=30):
             sleep(1)
     else:
         raise Exception
-
 
 def login_ss_fota():
     ## Login
@@ -177,9 +182,10 @@ except Exception as ex:
 
 
 #find_xpath_click(driver, '//html/body/div[1]/div[2]/div[1]/div/div[2]/ul/li[5]/a/span[1]/img', "Realtime")
-find_xpath_click(driver, '/html/body/div[1]/div[2]/div[1]/div/div[2]/ul/li[4]/a/span[1]/img', "Realtime")
-find_xpath_click(driver, '/html/body/div[2]/div[1]/div[1]/div/ul/li[4]/ul/li[2]/ul/li[1]/a/div', "Version Count on Market")
-#
+find_xpath_click(driver, '/html/body/div[1]/div[2]/div[1]/div/div[2]/ul/li[2]/a/span[1]/img', "Realtime")
+#find_xpath_click(driver, '/html/body/div[2]/div[1]/div[1]/div/ul/li[4]/ul/li[2]/ul/li[1]/a/div', "Version Count on Market")
+find_xpath_click(driver, '/html/body/div[2]/div[1]/div[1]/div/ul/li[2]/ul/li[2]/ul/li[1]/a/div', "Version Count on Market")
+
 find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[2]/div[4]/div[2]/div/span[2]", "CC ALL 체크")
 find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[2]/div[4]/div[3]/div/span[2]", "Model ALL 체크")
 find_xpath_click(driver, '/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[2]/p/a', "Search")
@@ -235,10 +241,12 @@ def getcelenderxy(day):
     return wd+2, weekindex
 
 # device_by_version
-find_xpath_click(driver, '/html/body/div[2]/div[1]/div[1]/div/ul/li[2]/h2/a', "DEVICE", wait=70)
-find_xpath_click(driver, '/html/body/div[2]/div[1]/div[1]/div/ul/li[2]/ul/li/ul/li[1]/a/div', " By version")
+find_xpath_click(driver, '/html/body/div[2]/div[1]/div[1]/div/ul/li[1]/h2/a', "DEVICE", wait=70)
+find_xpath_click(driver, '/html/body/div[2]/div[1]/div[1]/div/ul/li[1]/ul/li/ul/li[1]/a/div', " By version")
 
-find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[2]/div[4]/div[2]/div/span[2]/input", "CC ALL 체크")
+#find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[2]/div[4]/div[2]/div/span[2]/input", "CC ALL 체크")
+find_xpath_click(driver, '/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[2]/div[4]/div[2]/dd/button/span[2]', "CC입력")
+find_xpath_click(driver, '/html/body/div[8]/ul/li[1]/label/span', "SKC 체크")
 find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[2]/div[4]/div[3]/div/span[2]/input", "Model ALL 체크")
 
 #90일 전으로 설정
@@ -278,10 +286,11 @@ StartMaeDb_last90days()
 
 from ss_fota_send_email import start_send_report_email
 # test 시 주석처리 필요
-start_send_report_email(False)
+
+start_send_report_email(isTest)
 
 from ss_fota_send_email_custom import start_send_report_email_custom
-start_send_report_email_custom([['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N']], ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', "58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "jungil.kwon@sktelecom.com", "jaehyun.ryu@sktelecom.com", "jbmoon@sktelecom.com"])
+start_send_report_email_custom(isTest, [['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N']], ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', "58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "jaehyun.ryu@sktelecom.com", "jbmoon@sktelecom.com"])
 
 from ftpupload_fota import start_upload
 file_list = start_upload()
