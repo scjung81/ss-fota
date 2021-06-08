@@ -122,18 +122,15 @@ from connection_info import get_connection_info
 ss_fota_id = get_connection_info("ss_fota_id")
 ss_fota_pw = get_connection_info("ss_fota_pw")  #<-- 3개월단위 업데이트 필요
 
-headless_raw = "FALSE"   #for test
+#headless_raw = "FALSE"   #for test
 #headless_raw = "TRUE"   #headless 모드, 자동화시 필요
 
 host = get_connection_info("ss_fota_host")
 
 if (isTest == True) :
-    headless = True
+    headless = False
 else :
-    headless = False
-
-if(headless_raw == "FALSE" or headless_raw == False):
-    headless = False
+    headless = True
 
 print("headless = " + str(headless))
 
