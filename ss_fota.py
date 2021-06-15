@@ -282,16 +282,25 @@ StartMakeDb_current()
 from make_db_data_ss_fota_device_by_version import StartMaeDb_last90days
 StartMaeDb_last90days()
 
+# Send Mail
+recevier_list = ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', 'jaehyun.ryu@sktelecom.com',
+                 'jbmoon@sktelecom.com', 'jtchoi20@sktelecom.com', 'hslim07@sktelecom.com', 'chris.mclee@sktelecom.com',
+                 'sangyhan@sktelecom.com', 'jaehyun99.kim@sktelecom.com', 'jiyoun_choi@sktelecom.com',
+                 'jongkeunjung@sktelecom.com', "9164c98a.o365skt.onmicrosoft.com@apac.teams.ms"]
+recevier_list_test = ["58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "sukchan.jung@sktelecom.com"]
+custom_model = [['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N', 'SM-G950N', 'SM-G955N', 'SM-N960N', 'SM-N950N']]
+
+
 from ss_fota_send_email import start_send_report_email
-# test 시 주석처리 필요
-
-start_send_report_email(isTest)
-
 from ss_fota_send_email_custom import start_send_report_email_custom
-start_send_report_email_custom(isTest, [['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N','SM-G950N','SM-G955N','SM-N960N','SM-N950N']], ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', "58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "jaehyun.ryu@sktelecom.com", "jbmoon@sktelecom.com"])
-
 from ftpupload_fota import start_upload
-file_list = start_upload()
 
-sendMail(title="ss_fota end ", text="")
+if (isTest == True) :
+    start_send_report_email(recevier_list_test)
+    start_send_report_email_custom(custom_model, recevier_list_test)
+else :
+    start_send_report_email(recevier_list)
+    start_send_report_email_custom(custom_model, recevier_list)
+    file_list = start_upload()
+    sendMail(title="ss_fota end ", text="")
 

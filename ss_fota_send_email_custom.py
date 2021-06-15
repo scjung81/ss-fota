@@ -1,6 +1,6 @@
 #!/usr/bin/env om
 # coding: utf-8
-def start_send_report_email_custom(isTest, model_lists, email_list):
+def start_send_report_email_custom(model_lists, recevier_list):
     import pandas as pd
     pd.set_option('display.max_rows', 500)
     pd.set_option('display.max_columns', 500)
@@ -592,21 +592,13 @@ def start_send_report_email_custom(isTest, model_lists, email_list):
             if __name__ == "__main__":
                 # 테스트 메일 #Jupyter 노트 북 또는 개별 모듈 실행시
                 print("테스트 메일")
-                mail_sender.send(sender, email_list,
+                mail_sender.send(sender, ['sukchan.jung@sktelecom.com'],
                                  '삼성 FOTA 연동 현황_Custom ({}/{})'.format(page, total_page), message_html=message_html, message_plain=message_plain, images=images, files=files)
             else :
-                # Teams 공유 메일 주소
-                if (isTest == False):
-                    mail_sender.send(sender, email_list,
+                mail_sender.send(sender, recevier_list,
                                      '삼성 FOTA 연동 현황_Custom ({}/{})'.format(page, total_page), message_html=message_html, message_plain=message_plain, images=images,
                                      files=files)
-                else :
-                    mail_sender.send(sender, ["sukchan.jung@sktelecom.com"],
-                                     '삼성 FOTA 연동 현황_Custom ({}/{})'.format(page, total_page), message_html=message_html,
-                                     message_plain=message_plain, images=images,
-                                     files=files)
-
-        print("complet!!")
+        print("complete!!")
 
 ## Start
 if __name__ == "__main__":
