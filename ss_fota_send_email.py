@@ -10,7 +10,7 @@ def start_send_report_email(recevier_list):
 
     # # 관심 단말 등록
     model_lists = [['SM-G977N'], ['SM-N971N', 'SM-N976N'], ['SM-G981N'], ['SM-G986N'], ['SM-G988N'], ['SM-G986N-BTS', 'SM-G781N'],
-                   ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N'], ['SM-G991N', 'SM-G996N', 'SM-G998N'], ['SM-A426N', 'SM-A826S']]
+                   ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N'], ['SM-G991N', 'SM-G996N', 'SM-G998N'], ['SM-A426N', 'SM-A826S'], ['SM-F926N', 'SM-F711N']]
     model_list = [element for array in model_lists for element in array]
 
     import os
@@ -339,6 +339,7 @@ def start_send_report_email(recevier_list):
     ss_fota_recent.fillna("TBA", inplace=True)
 
     for model in model_list:
+        print("==== start model : "+model+" ====")
         data = ss_fota_lastday.loc[(ss_fota_lastday["Model"] == model)]
         index = "Lable"
         x_column = 'Date'
