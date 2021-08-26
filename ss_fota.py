@@ -131,7 +131,7 @@ if (isTest == True) :
     headless = False
 else :
     headless = True
-
+#headless = False
 print("headless = " + str(headless))
 
 ######################################################################################
@@ -248,16 +248,20 @@ find_xpath_click(driver, '/html/body/div[8]/ul/li[1]/label/span', "SKC 체크")
 find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[2]/div[4]/div[3]/div/span[2]/input", "Model ALL 체크")
 
 #90일 전으로 설정
-find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[1]/div[2]/div[1]/img", "Date Range_start")
+#find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div/div/div[2]/form/div[1]/div/div/div[1]/div[2]/div[1]/img", "Date Range_start")
+find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[2]/div[1]/img", "Date Range_start")
 
 for j in range(0, getdeltamonth_6to90()):
-    find_xpath_click(driver, "/html/body/div[24]/div/a[1]/span", "Previous month")
+    #find_xpath_click(driver, "/html/body/div[24]/div/a[1]/span", "Previous month")
+    find_xpath_click(driver, "/html/body/div[26]/div/a[1]/span", "Previous month")
 
 x,y = getcelenderxy(parse(getshiftday(getCurrentDate(), -89)))
-find_xpath_click(driver, "/html/body/div[24]/table/tbody/tr[{0}]/td[{1}]/a".format(y,x), "Select Day")
-#find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[1]/div[2]/ul/li[1]/a".format(y,x), "Select Day")
+#find_xpath_click(driver, "/html/body/div[24]/table/tbody/tr[{0}]/td[{1}]/a".format(y,x), "Select Day")
+find_xpath_click(driver, "/html/body/div[26]/table/tbody/tr[{0}]/td[{1}]/a".format(y,x), "Select Day")
 
-find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[1]/div[2]/ul/li[1]/a", "Click Day")
+#find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[1]/div[2]/ul/li[1]/a".format(y,x), "Select Day")
+#find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[1]/div[2]/ul/li[1]/a", "Click Day")
+
 find_xpath_click(driver, '/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[2]/p/a', "Search")
 
 find_xpath_click(driver, '/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[3]/div/div[2]/p/a', "XLS Report", wait=150)
