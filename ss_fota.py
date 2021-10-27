@@ -253,11 +253,11 @@ find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form
 
 for j in range(0, getdeltamonth_6to90()):
     #find_xpath_click(driver, "/html/body/div[24]/div/a[1]/span", "Previous month")
-    find_xpath_click(driver, "/html/body/div[26]/div/a[1]/span", "Previous month")
+    find_xpath_click(driver, "/html/body/div[27]/div/a[1]/span", "Previous month")
 
 x,y = getcelenderxy(parse(getshiftday(getCurrentDate(), -89)))
 #find_xpath_click(driver, "/html/body/div[24]/table/tbody/tr[{0}]/td[{1}]/a".format(y,x), "Select Day")
-find_xpath_click(driver, "/html/body/div[26]/table/tbody/tr[{0}]/td[{1}]/a".format(y,x), "Select Day")
+find_xpath_click(driver, "/html/body/div[27]/table/tbody/tr[{0}]/td[{1}]/a".format(y,x), "Select Day")
 
 #find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[1]/div[2]/ul/li[1]/a".format(y,x), "Select Day")
 #find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[1]/div[2]/ul/li[1]/a", "Click Day")
