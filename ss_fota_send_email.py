@@ -10,7 +10,7 @@ def start_send_report_email(recevier_list):
 
     # # 관심 단말 등록
     model_lists = [['SM-G977N'], ['SM-N971N', 'SM-N976N'], ['SM-G981N'], ['SM-G986N'], ['SM-G988N'], ['SM-G986N-BTS', 'SM-G781N'],
-                   ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N'], ['SM-G991N', 'SM-G996N', 'SM-G998N'], ['SM-A426N', 'SM-A826S', 'SM-A528N'], ['SM-F926N', 'SM-F711N']]
+                   ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N'], ['SM-G991N', 'SM-G996N', 'SM-G998N'], ['SM-A426N', 'SM-A826S', 'SM-A528N'], ['SM-F926N', 'SM-F711N', 'SM-E426S']]
     model_list = [element for array in model_lists for element in array]
 
     import os
