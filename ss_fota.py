@@ -288,8 +288,8 @@ StartMaeDb_last90days()
 
 # Send Mail
 recevier_list = ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', 'jaehyun.ryu@sktelecom.com',
-                 'jbmoon@sktelecom.com', 'jtchoi20@sktelecom.com', 'hslim07@sktelecom.com', 'chris.mclee@sktelecom.com',
-                 'sangyhan@sktelecom.com', 'jaehyun99.kim@sktelecom.com', 'jiyoun_choi@sktelecom.com',
+                 'jbmoon@sktelecom.com', 'jtchoi20@sktelecom.com', 'chris.mclee@sktelecom.com',
+                 'jiyoun_choi@sktelecom.com', 'byungjo.min@sktelecom.com',
                  'jongkeunjung@sktelecom.com', "9164c98a.o365skt.onmicrosoft.com@apac.teams.ms"]
 recevier_list_test = ["58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "sukchan.jung@sktelecom.com"]
 custom_model = [['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N', 'SM-G950N', 'SM-G955N', 'SM-N960N', 'SM-N950N']]
