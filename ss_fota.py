@@ -253,11 +253,11 @@ find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form
 
 for j in range(0, getdeltamonth_6to90()):
     #find_xpath_click(driver, "/html/body/div[24]/div/a[1]/span", "Previous month")
-    find_xpath_click(driver, "/html/body/div[27]/div/a[1]/span", "Previous month")
+    find_xpath_click(driver, "/html/body/div[28]/div/a[1]/span", "Previous month")
 
 x,y = getcelenderxy(parse(getshiftday(getCurrentDate(), -89)))
 #find_xpath_click(driver, "/html/body/div[24]/table/tbody/tr[{0}]/td[{1}]/a".format(y,x), "Select Day")
-find_xpath_click(driver, "/html/body/div[27]/table/tbody/tr[{0}]/td[{1}]/a".format(y,x), "Select Day")
+find_xpath_click(driver, "/html/body/div[28]/table/tbody/tr[{0}]/td[{1}]/a".format(y,x), "Select Day")
 
 #find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[1]/div[2]/ul/li[1]/a".format(y,x), "Select Day")
 #find_xpath_click(driver, "/html/body/div[2]/div[1]/div[2]/div[1]/div/div[2]/form/div/div[1]/div/div[1]/div[1]/div[2]/ul/li[1]/a", "Click Day")
@@ -290,8 +290,8 @@ StartMaeDb_last90days()
 recevier_list = ["sukchan.jung@sktelecom.com", 'ywhan@sktelecom.com', 'jaehyun.ryu@sktelecom.com',
                  'jbmoon@sktelecom.com', 'jtchoi20@sktelecom.com', 'chris.mclee@sktelecom.com',
                  'jiyoun_choi@sktelecom.com', 'byungjo.min@sktelecom.com',
-                 'jongkeunjung@sktelecom.com', "9164c98a.o365skt.onmicrosoft.com@apac.teams.ms"]
-recevier_list_test = ["58fc60be.o365skt.onmicrosoft.com@apac.teams.ms", "sukchan.jung@sktelecom.com"]
+                 'jongkeunjung@sktelecom.com', 'js.han@widenet.co.kr', 'yecho@testenc.com']
+recevier_list_test = ["sukchan.jung@sktelecom.com"]
 custom_model = [['SM-G970N', 'SM-G973N', 'SM-G975N', 'SM-G960N', 'SM-G965N', 'SM-G950N', 'SM-G955N', 'SM-N960N', 'SM-N950N']]
 
 
@@ -305,6 +305,6 @@ if (isTest == True) :
 else :
     start_send_report_email(recevier_list)
     start_send_report_email_custom(custom_model, recevier_list)
-    file_list = start_upload()
+    #file_list = start_upload()
     sendMail(title="ss_fota end ", text="")
 

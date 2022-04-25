@@ -10,7 +10,10 @@ def start_send_report_email(recevier_list):
 
     # # 관심 단말 등록
     model_lists = [['SM-G977N'], ['SM-N971N', 'SM-N976N'], ['SM-G981N'], ['SM-G986N'], ['SM-G988N'], ['SM-G986N-BTS', 'SM-G781N'],
-                   ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N'], ['SM-G991N', 'SM-G996N', 'SM-G998N'], ['SM-A426N', 'SM-A826S', 'SM-A528N'], ['SM-F926N', 'SM-F711N', 'SM-E426S']]
+                   ['SM-A908N', 'SM-F907N', 'SM-A516N', 'SM-A716S'], ['SM-N981N', 'SM-N986N', 'SM-F916N', 'SM-F707N'], ['SM-G991N', 'SM-G996N', 'SM-G998N'], ['SM-A426N', 'SM-A826S', 'SM-A528N', 'SM-E426S'], ['SM-F926N', 'SM-F711N'],
+                   ['SM-S908N', 'SM-S906N', 'SM-S901N'], ['SM-A536N', 'SM-M536S']]
+    share_model_list = [['SM-G991N', 'SM-G996N', 'SM-G998N'], ['SM-F926N', 'SM-F711N'], ['SM-S908N', 'SM-S906N', 'SM-S901N']]
+    receiver_teams = ["9164c98a.o365skt.onmicrosoft.com@apac.teams.ms"]
     model_list = [element for array in model_lists for element in array]
 
     import os
@@ -538,7 +541,9 @@ def start_send_report_email(recevier_list):
     """
 
     page = 0
+    page_shared = 0
     total_page = len(model_lists)
+    total_page_shared = len(share_model_list)
     for models in model_lists:
         page += 1
         print(page, models)
@@ -600,7 +605,20 @@ def start_send_report_email(recevier_list):
                                 '삼성 FOTA 연동 현황 ({}/{}), {}'.format(page, total_page, models), message_html=message_html,
                                 message_plain=message_plain, images=images,
                                 files=files)
-                print("complete!!")
+
+                if models in share_model_list:
+                    page_shared += 1
+                    if (page_shared == total_page_shared):  # 마지막 메일에 파일 첨부
+                        files.append(ss_fota_attach_fname)
+                        print("Teams mail - Attach files : ", files)
+                    mail_sender.send(sender, receiver_teams,
+                                     '삼성 FOTA 연동 현황 ({}/{}), {}'.format(page_shared, total_page_shared, models),
+                                     message_html=message_html,
+                                     message_plain=message_plain, images=images,
+                                     files=files)
+                    print("Teams mail - send mail num : ", page_shared)
+
+                print("Send mail complete!!")
 ## Start
 if __name__ == "__main__":
     start_send_report_email()
